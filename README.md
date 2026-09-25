@@ -1,180 +1,303 @@
 # 🎂 Special Birthday Website 💖
 
-> ✨ A little website made to make someone's birthday a little more special.
+### Make someone's birthday a little more special. ✨
 
-**Special Birthday Website** is a fun, animated and customizable birthday surprise website.
-It comes with animated content, interactive click effects, flowers, photo frames, sticky notes and a birthday song — everything you need to create a cute digital surprise for someone special. 🌸🎁
+A beautiful, interactive and customizable birthday website made for creating a **personal digital birthday surprise** for someone special.
 
-🌐 **Repository:** https://github.com/curie-x/special-birthday-website
+It includes animated birthday content, background music, interactive flower/emoji effects, a photo scrapbook, sticky notes, and a hidden birthday letter — all in one little website. 🌸🎁
 
----
-
-## 💝 What is this?
-
-Sometimes a simple birthday message isn't enough.
-
-This project lets you create a **personalized birthday webpage** for your special person — whether it's your best friend, girlfriend, boyfriend, sibling, or anyone who deserves a little extra effort on their birthday. 🫶
-
-The website includes:
-
-* 🎂 Animated birthday content
-* 🌸 Interactive flower/emoji click animations
-* 📸 Beautiful photo frame
-* 📝 Attractive sticky notes
-* 🎵 Custom birthday background music
-* ✨ Smooth animations and transitions
-* 💖 Personalized birthday message
-* 📱 Mobile-friendly design
-* 🎁 A fun surprise-style experience
+> 💡 **The idea is simple:**
+> Change the name, replace the photos, choose your own birthday song, customize the messages — and you're ready to surprise someone.
 
 ---
 
-# 🛠️ How to Customize
+## ✨ What's Inside?
 
-You don't need to completely rebuild the website.
+🎁 **Welcome Surprise**
+A welcome popup asks the birthday person to turn up the volume before opening the surprise.
 
-Just make a few simple changes.
+🎵 **Birthday Music**
+Background music starts with the surprise and comes with simple play, pause, mute and volume controls.
 
-### 1. Change the Name
+🎂 **Animated Birthday Section**
+A colorful animated birthday introduction with the person's name, photo, balloons and decorations.
 
-Find:
+🌸 **Click Animations**
+Click anywhere on the page and flowers, hearts, stars, gifts and other emojis appear around your click.
 
-```text
-Maria
-```
+📸 **Memory Scrapbook**
+A scrapbook-style section with photos, Polaroid cards and cute sticky notes.
 
-and replace it with:
+📝 **Personal Notes**
+Add your own messages, birthday checklist, memories, wishes or anything you want to say.
 
-```text
-HER NAME
-```
+💌 **Secret Birthday Letter**
+Click the envelope to open a personalized letter with another interactive animation.
 
-For example:
-
-```text
-Maria
-```
-
-➡️
-
-```text
-Khusi
-```
+📱 **Mobile Friendly**
+Designed to work on both phones and desktops.
 
 ---
 
-### 2. Change the Photo 📸
+# 💝 Make It Yours
 
-Replace the existing birthday photo with the photo of the person you're making this website for.
+You don't need to understand the entire code.
 
-Keep the new image in the same location/folder and update the filename/path if necessary.
+The website is already built.
 
-For example:
-
-```text
-images/maria.jpg
-```
-
-can become:
-
-```text
-images/her-name.jpg
-```
-
-Then update the image reference in the code.
+**Just personalize a few things.**
 
 ---
 
-### 3. Change the Birthday Song 🎵
+## 1. 👤 Change the Name
 
-You can replace the default birthday song with any song you want.
+The current version uses **Maria** as the example name.
 
-Add your preferred audio file to the project and update the audio source.
+You can find the name in several places in the HTML.
 
 For example:
 
 ```html
-<audio src="music/birthday-song.mp3"></audio>
+<title>Happy Birthday Maria</title>
 ```
 
-You can use:
+Change it to:
+
+```html
+<title>Happy Birthday HER NAME</title>
+```
+
+You'll also find it in the birthday section:
+
+```html
+<span>Dear Maria</span>
+```
+
+Change it to:
+
+```html
+<span>Dear HER NAME</span>
+```
+
+And don't forget the birthday letter and other messages.
+
+### 🔎 Tip
+
+Search the HTML file for:
 
 ```text
-birthday-song.mp3
+Maria
 ```
 
-or any other audio file you prefer.
-
-> ⚠️ If you're publishing the website publicly, make sure you have the right to use any copyrighted music you upload.
+Then replace the relevant occurrences with your person's name.
 
 ---
 
-### 4. Customize the Messages 💌
+# 2. 📸 Replace the Photos
 
-You can also change the birthday messages, sticky notes, wishes and other text to make the website feel more personal.
-
-The more personal you make it, the better the surprise. ❤️
-
----
-
-# 🚀 Deploy Your Birthday Website
-
-Once you've customized everything, you're ready to deploy it!
-
-## Option 1 — Vercel ⭐ Recommended
-
-[Vercel](https://vercel.com/) is one of the easiest ways to deploy this project for free.
-
-### Step 1 — Create a Vercel Account
-
-Go to:
-
-**https://vercel.com/**
-
-Sign up using your GitHub account.
-
-### Step 2 — Import Your GitHub Project
-
-After signing in:
-
-1. Click **Add New**
-2. Select **Project**
-3. Find your GitHub repository
-4. Click **Import**
-
-### Step 3 — Configure the Project
-
-For a simple HTML/CSS/JavaScript website, you usually don't need complicated configuration.
-
-Vercel should automatically detect the project.
-
-Then click:
-
-**Deploy 🚀**
-
-Wait a few seconds and Vercel will give you a public website URL.
+The website uses multiple images for the main profile photo and scrapbook memories.
 
 For example:
 
-```text
-https://your-birthday-website.vercel.app
+```html
+<img src="./images/k10.png" alt="Maria Photo">
 ```
 
-Send that link to your special person and let the surprise begin. 🎂💖
+and:
+
+```html
+<img src="./images/k13.jpg">
+<img src="./images/k11.jpg">
+<img src="./images/k12.jpg">
+```
+
+Replace these images with your own photos.
+
+### Example
+
+If your new photo is:
+
+```text
+images/her-photo.jpg
+```
+
+you can change:
+
+```html
+<img src="./images/k10.png">
+```
+
+to:
+
+```html
+<img src="./images/her-photo.jpg">
+```
+
+You can also replace the scrapbook photos with your favorite memories together. ❤️
+
+> 📌 **Important:** Keep your image paths correct. If you move an image to another folder, update the `src` path in the HTML.
+
+---
+
+# 3. 🎵 Change the Birthday Song
+
+The website currently loads the music from:
+
+```text
+audio/Maria.mp3
+```
+
+The audio is connected through:
+
+```html
+<audio id="bgMusic" src="audio/Maria.mp3" preload="auto" loop></audio>
+```
+
+Simply put your preferred song inside the `audio` folder and change the filename.
+
+For example:
+
+```html
+<audio id="bgMusic" src="audio/birthday-song.mp3" preload="auto" loop></audio>
+```
+
+That's it. 🎶
+
+> ⚠️ If you're publishing the website publicly, make sure you have permission to use the music you upload.
+
+---
+
+# 4. 📝 Customize the Messages
+
+This is where you can make the website truly personal.
+
+You can edit:
+
+* 💌 Birthday wishes
+* 📝 Sticky notes
+* 📸 Photo captions
+* 🎂 Birthday checklist
+* 💖 The final letter
+* ✨ Any other text on the page
+
+For example, the scrapbook contains notes like:
+
+```text
+Some people make life a little brighter just by being themselves.
+```
+
+You can replace that with your own message.
+
+You can also completely rewrite the letter inside the envelope.
+
+**Make it funny. Make it emotional. Make it romantic. Make it personal.**
+
+That's the whole point. ❤️
+
+---
+
+# 📅 Change the Birthday Date
+
+The birthday date is also displayed through JavaScript.
+
+Currently it contains:
+
+```javascript
+let datetxt = "04 Sept";
+```
+
+Change it to the birthday date you want.
+
+For example:
+
+```javascript
+let datetxt = "18 Oct";
+```
+
+---
+
+# 🚀 Deploy Your Website
+
+Once you've finished customizing it, you can host it for free.
+
+There are two easy options.
+
+---
+
+## ⭐ Option 1 — Vercel
+
+**Recommended**
+
+[Vercel](https://vercel.com/) makes deploying a static website extremely easy.
+
+### Step 1 — Create an account
+
+Go to Vercel and sign up using your GitHub account.
+
+### Step 2 — Upload the project to GitHub
+
+Create a GitHub repository and upload your website files.
+
+Your project should look something like:
+
+```text
+special-birthday-website/
+│
+├── index.html
+├── style.css
+│
+├── images/
+│   ├── photo1.jpg
+│   ├── photo2.jpg
+│   └── ...
+│
+└── audio/
+    └── birthday-song.mp3
+```
+
+### Step 3 — Import the repository into Vercel
+
+In Vercel:
+
+**Add New → Project**
+
+Select your GitHub repository and click:
+
+**Import**
+
+For this type of HTML/CSS/JavaScript website, you normally don't need any complicated configuration.
+
+Click:
+
+**Deploy 🚀**
+
+After deployment, Vercel will give you a public URL.
+
+Example:
+
+```text
+https://special-birthday-website.vercel.app
+```
+
+Send the link to your special person.
+
+🎁 **And the surprise is ready.**
 
 ---
 
 # 🐙 Option 2 — GitHub Pages
 
-You can also host the website completely free using **GitHub Pages**.
+You can also host the website completely free using GitHub Pages.
 
 ### Step 1
 
-Push your customized project to GitHub.
+Push your completed project to GitHub.
 
 ### Step 2
 
-Open your repository and go to:
+Open your repository.
+
+Go to:
 
 **Settings → Pages**
 
@@ -183,118 +306,104 @@ Open your repository and go to:
 Under **Build and deployment**, select:
 
 ```text
-Source: Deploy from a branch
+Deploy from a branch
 ```
 
-Choose:
+Then select:
 
 ```text
 Branch: main
 Folder: / (root)
 ```
 
-Then click **Save**.
+Click **Save**.
 
-After GitHub finishes deploying, you'll get a website URL similar to:
+GitHub will deploy your website.
+
+Your URL will look similar to:
 
 ```text
-https://curie-x.github.io/special-birthday-website/
+https://your-username.github.io/special-birthday-website/
 ```
 
 ---
 
-# 📱 Works on Mobile
+# 🎀 Quick Personalization Checklist
 
-The website is designed to work on both:
-
-* 💻 Desktop
-* 📱 Mobile
-
-So your special person can open the birthday surprise directly from their phone.
-
----
-
-# 🎨 Make It Yours
-
-The main idea of this project is **customization**.
-
-You can change:
-
-| Element             | Customize |
-| ------------------- | --------- |
-| 👤 Name             | Yes       |
-| 📸 Photos           | Yes       |
-| 🎵 Music            | Yes       |
-| 💌 Messages         | Yes       |
-| 📝 Sticky Notes     | Yes       |
-| 🌸 Animations       | Yes       |
-| 🎨 Colors           | Yes       |
-| 🎂 Birthday Content | Yes       |
-
-Make it funny.
-Make it romantic.
-Make it emotional.
-Make it completely chaotic. 😂
-
-It's your surprise.
-
----
-
-# 💡 Quick Setup
+Before sending the website, check these:
 
 ```text
-1. Clone / download the project
-        ↓
-2. Change the name
-        ↓
-3. Replace the photo
-        ↓
-4. Add your birthday song
-        ↓
-5. Customize the messages
-        ↓
-6. Test the website
-        ↓
-7. Deploy 🚀
-        ↓
-8. Send the link 🎁
+☐ Change the person's name
+☐ Replace the main photo
+☐ Replace scrapbook photos
+☐ Change photo captions
+☐ Change sticky-note messages
+☐ Change birthday letter
+☐ Change birthday date
+☐ Add your preferred birthday song
+☐ Test the website on your phone
+☐ Test the music
+☐ Test all buttons and animations
+☐ Deploy 🚀
+☐ Send the link 🎁
 ```
 
 ---
 
-# ❤️ Why I Made This
+# ❤️ The Idea Behind This Project
 
-A birthday website doesn't need to be complicated.
+This isn't meant to be another complicated website project.
 
-Sometimes a few animations, some memories, a favorite song and a little effort can make someone's day.
+It's meant to be something you can make **for someone you care about**.
 
-This project was created specifically for that.
+You don't need to buy a domain.
 
-**Not just another website — a small digital birthday surprise. 🎂✨**
+You don't need a paid hosting plan.
+
+You don't need to know advanced web development.
+
+Just take the template, add their photos, write your own words, choose a song and put everything together.
+
+Then send them one simple link:
+
+> **"I made something for you. ❤️"**
+
+And let the website do the rest. ✨
 
 ---
 
-## ⭐ If You Like It
+# 🌸 Features
 
-If this project helped you create a special birthday surprise:
+| Feature                         | Included |
+| ------------------------------- | -------- |
+| 🎂 Animated Birthday            | ✅        |
+| 🎵 Background Music             | ✅        |
+| 🔊 Music Controls               | ✅        |
+| 📸 Photo Memories               | ✅        |
+| 📝 Sticky Notes                 | ✅        |
+| 💌 Interactive Letter           | ✅        |
+| 🌸 Click Flower/Emoji Animation | ✅        |
+| 🎉 Celebration Burst            | ✅        |
+| 🎈 Balloons & Decorations       | ✅        |
+| 📱 Mobile Friendly              | ✅        |
+| 💻 Desktop Friendly             | ✅        |
+| 🆓 Free Hosting Support         | ✅        |
+
+---
+
+# ⭐ Support the Project
+
+If you like this project:
 
 ⭐ Star the repository
 🍴 Fork it
-🛠️ Customize it
-🎁 Surprise someone
+💝 Customize it
+🎁 Make someone's birthday special
 
-And if you make your own version, I'd love to see what you create!
-
----
-
-## 📜 License
-
-Feel free to use, modify and personalize this project for your own birthday surprises.
-
-Please check the license file in the repository for the exact terms of use.
+And if you create your own version, feel free to share it!
 
 ---
 
-### Made with ❤️ and a little bit of code.
+## Made with ❤️ by Curie X
 
-**— Curie X**
+**A little code. A few memories. One special person. 🎂✨**
