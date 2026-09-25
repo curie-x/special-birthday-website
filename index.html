@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Happy Birthday Website 2.0">
+    <title>Happy Birthday Maria</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&family=Sriracha&family=Titan+One&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        /* ===========================
+           ENTRY POPUP / WELCOME MODAL
+        =========================== */
+        #welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #welcome-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .welcome-card {
+            background: #fff;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ff6b81;
+            animation: popIn 0.4s ease-out;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .welcome-card i.main-icon {
+            font-size: 45px;
+            color: #ff6b81;
+            margin-bottom: 15px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .welcome-card h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #ff4757;
+            margin-bottom: 10px;
+        }
+
+        .welcome-card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .popup-btn {
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            background: #ff6b81;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(255, 107, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .popup-btn:hover {
+            background: #ff4757;
+            transform: scale(1.05);
+        }
+
+        /* Music Controls */
+        .custom-audio-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 16px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 182, 193, 0.8);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .custom-audio-container button {
+            background: #ff6b81;
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-audio-container button:hover {
+            background: #ff4757;
+            transform: scale(1.05);
+        }
+
+        .custom-audio-container input[type="range"] {
+            width: 75px;
+            accent-color: #ff6b81;
+            cursor: pointer;
+        }
+
+        /* Envelope Component Variables & Styling */
+        :root {
+            --primary: #fff;
+            --bg-envelope-color: #f5edd1;
+            --envelope-tab: #ecdeb8;
+            --envelope-cover: #e6cfa7;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --txt-color: #444;
+            --heart-color: rgb(252, 8, 231);
+        }
+
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10000;
+            display: none; 
+            place-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+        
+        .container.active {
+            display: grid;
+        }
+
+        .container > .envelope-wrapper {
+            background: var(--bg-envelope-color);
+            box-shadow: 0 0 40px var(--shadow-color);
+            position: relative;
+        }
+
+        .container .envelope-wrapper .envelope {
+            position: relative;
+            width: 300px;
+            height: 230px;
+        }
+
+        .envelope-wrapper > .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-top: 130px solid var(--envelope-tab);
+            border-right: 150px solid transparent;
+            border-left: 150px solid transparent;
+            transform-origin: top;
+            transition: all 0.5s ease-in-out 0.7s;
+        }
+
+        .container .envelope-wrapper .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            width: 0;
+            height: 0;
+            border-top: 130px solid transparent;
+            border-right: 150px solid var(--envelope-cover);
+            border-bottom: 100px solid var(--envelope-cover);
+            border-left: 150px solid var(--envelope-cover);
+        }
+
+        .envelope > .letter {
+            position: absolute;
+            right: 10%;
+            bottom: 0;
+            width: 74%;
+            height: 85%;
+            background: var(--primary);
+            text-align: center;
+            transition: all 1s ease-in-out;
+            box-shadow: 0 0 5px var(--shadow-color);
+            padding: 15px 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            z-index: 1;
+        }
+
+        .container .envelope-wrapper .envelope .letter .text {
+            font-family: 'Poppins', Arial, sans-serif;
+            color: var(--txt-color);
+            text-align: left;
+            font-size: 8.5px;
+            line-height: 1.4;
+        }
+
+        .container .envelope-wrapper .envelope .letter .text strong {
+            font-family: 'Dancing Script', cursive;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
+            color: #ff6b81;
+        }
+
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            background: var(--heart-color);
+            z-index: 4;
+            transform: translate(-50%, -20%) rotate(-45deg);
+            transition: transform 0.5s ease-in-out 1s;
+            box-shadow: 0 1px 6px var(--shadow-color);
+            cursor: pointer;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--heart-color);
+            border-radius: 50%; 
+        }
+
+        .heart::before {
+            top: -7.5px;
+        }
+
+        .heart::after {
+            right: -7.5px;
+        }
+
+        .flap .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .flap .envelope .letter {
+            bottom: 120px;
+            transform: scale(1.3);
+            transition-delay: 1s;
+            z-index: 3;
+        }
+
+        .flap .heart {
+            transform: rotate(45deg);
+            transition-delay: 0.4s;
+        }
+
+        .close-envelope-box {
+            position: absolute;
+            top: -35px;
+            right: -10px;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+        
+        .envelope .letter::-webkit-scrollbar {
+            width: 3px;
+        }
+        .envelope .letter::-webkit-scrollbar-thumb {
+            background: #ff6b81;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="welcome-modal">
+        <div class="welcome-card">
+            <i class="fa-solid fa-gift main-icon"></i>
+            <h2>A Special Gift!</h2>
+            <p>Turn up your volume for the best birthday experience 🎶</p>
+            <button class="popup-btn" id="soundEntry">Open Surprise ✨</button>
+        </div>
+    </div>
+    
+    <audio id="bgMusic" src="audio/Maria.mp3" preload="auto" loop></audio>
+
+    <div class="custom-audio-container">
+        <button id="playBtn" title="Play/Pause Audio">
+            <i class="fa-solid fa-play"></i>
+        </button>
+        <button id="muteBtn" title="Mute/Unmute">
+            <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" title="Volume">
+    </div>
+
+    <div id="wrapper" class="paused-anim">
+        <div class="hero-section">
+            <div class="flag__birthday">
+                <img src="./images/1.png" alt="" width="350" class="flag__left">
+                <img src="./images/1.png" alt="" width="350" class="flag__right">
+            </div>
+            <div class="content">
+                <div class="left">
+                    <div class="title">
+                        <h1 class="happy">
+                            <span style="--t: 4s;">H</span>
+                            <span style="--t: 4.2s;">a</span>
+                            <span style="--t: 4.4s;">p</span>
+                            <span style="--t: 4.6s;">p</span>
+                            <span style="--t: 4.8s;">y</span>
+                        </h1>
+                        <h1 class="birthday">
+                            <span style="--t: 5s;">B</span>
+                            <span style="--t: 5.2s;">i</span>
+                            <span style="--t: 5.4s;">r</span>
+                            <span style="--t: 5.6s;">t</span>
+                            <span style="--t: 5.8s;">h</span>
+                            <span style="--t: 6s;">d</span>
+                            <span style="--t: 6.2s;">a</span>
+                            <span style="--t: 6.4s;">y</span>
+                        </h1>
+                        <div class="hat">
+                            <img src="./images/hat.png" alt="" width="130">
+                        </div>
+                    </div>
+                    <div class="date__of__birth">
+                        <span></span>
+                    </div>
+                </div>
+                
+                <div class="right">
+                    <div class="box__account">
+                        <div class="image">
+                            <img src="./images/k10.png" alt="Maria Photo">
+                        </div>
+                        <div class="name">
+                            <i class="fa-solid fa-heart"></i>
+                            <span>Dear Maria</span>
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="balloon_one">
+                            <img width="100px" src="./images/balloon1.png" alt="Balloon 1">
+                        </div>
+                        <div class="balloon_two">
+                            <img width="100px" src="./images/balloon2.png" alt="Balloon 2">
+                        </div>
+                    </div>
+
+                    <div class="btn">
+                        <button id="btn__letter">
+                            <div class="mail">
+                                Click Here Dear 👆 
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="cricle">
+                        <div class="text__cricle">
+                            <span style="--i: 1;">H</span>
+                            <span style="--i: 2;">a</span>
+                            <span style="--i: 3;">p</span>
+                            <span style="--i: 4;">p</span>
+                            <span style="--i: 5;">y</span>
+                            <span style="--i: 6;">-</span>
+                            <span style="--i: 7;">B</span>
+                            <span style="--i: 8;">i</span>
+                            <span style="--i: 9;">r</span>
+                            <span style="--i: 10;">t</span>
+                            <span style="--i: 11;">h</span>
+                            <span style="--i: 12;">d</span>
+                            <span style="--i: 13;">a</span>
+                            <span style="--i: 14;">y</span>
+                            <span style="--i: 15;">-</span>
+                        </div>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="decorate_star star1" style="--t: 15s;"></div>
+            <div class="decorate_star star2" style="--t: 15.2s;"></div>
+            <div class="decorate_star star3" style="--t: 15.4s;"></div>
+            <div class="decorate_star star4" style="--t: 15.6s;"></div>
+            <div class="decorate_star star5" style="--t: 15.8s;"></div>
+            <div class="decorate_flower--one" style="--t: 15s;">
+                <img width="20" src="./images/decorate_flower.png" alt="">
+            </div>
+            <div class="decorate_flower--two" style="--t: 15.3s;">
+                <img width="20" src="./images/decorate_flower.png" alt="">
+            </div>
+            <div class="decorate_flower--three" style="--t: 15.6s;">
+                <img width="20" src="./images/decorate_flower.png" alt="">
+            </div>
+            <div class="decorate_bottom">
+                <img src="./images/decorate.png" alt="" width="100">
+            </div>
+            <div class="smiley__icon">
+                <img src="./images/smiley_icon.png" alt="" width="100">
+            </div>
+        </div>
+
+        <section class="memory-board-section">
+            <div class="memory-header">
+                <div class="cat-companion">
+                    <img src="./images/mewmew.gif" alt="Cute playing cat" />
+                </div>
+
+                <span class="sub-badge">Captured Moments & Sweet Notes</span>
+                <h2>Memory Scrapbook 📸</h2>
+                <p>A little board filled with smiles, sunshine, and favorite thoughts</p>
+            </div>
+
+            <div class="memory-grid">
+                <div class="scrap-card polaroid rot-neg-2">
+                    <div class="washi-tape tape-pattern-1"></div>
+                    <div class="photo-inner">
+                        <img src="./images/k13.jpg" alt="Memory Photo 1">
+                    </div>
+                    <div class="caption">The sweetest smile! ✨</div>
+                </div>
+
+                <div class="scrap-card sticky-note note-yellow rot-pos-2">
+                    <div class="pin">📌</div>
+                    <div class="note-text">
+                        "Some people make life a little brighter just by being themselves. You’re one of those people. Stay kind, stay beautiful, and never lose the amazing person you are. 🌸"
+                    </div>
+                    <div class="note-tag">~ note for you</div>
+                </div>
+
+                <div class="scrap-card polaroid rot-pos-3">
+                    <div class="washi-tape tape-pattern-2"></div>
+                    <div class="photo-inner">
+                        <img src="./images/k11.jpg" alt="Memory Photo 2">
+                    </div>
+                    <div class="caption">Favorite moments 💕</div>
+                </div>
+
+                <div class="scrap-card sticky-note note-pink rot-neg-3">
+                    <div class="washi-tape"></div>
+                    <div class="note-text">
+                        <strong>Birthday Checklist 🎂</strong><br>
+                        • Eat something delicious 🍰<br>
+                        • Make a wish with your whole heart 🌟<br>
+                        • Smile until your cheeks hurt 😊<br>
+                        • Make some beautiful memories 📸<br>
+                        • Enjoy your special day—you deserve it! 🌸
+                    </div>
+                    <div class="note-tag">~ daily reminder</div>
+                </div>
+
+                <div class="scrap-card polaroid rot-neg-1">
+                    <div class="washi-tape tape-pattern-1"></div>
+                    <div class="photo-inner">
+                        <img src="./images/k12.jpg" alt="Memory Photo 3">
+                    </div>
+                    <div class="caption">Always glowing 🌟</div>
+                </div>
+
+                <div class="scrap-card sticky-note note-peach rot-pos-1">
+                    <div class="pin">📍</div>
+                    <div class="note-text">
+                        "I genuinely hope life is always kind to you and brings you closer to everything that makes you happy. You deserve all the good things coming your way. Happy Birthday, Maria! 🌸🤍"
+                    </div>
+                    <div class="note-tag">~ always</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="envelope-wrapper">
+                <i class="fa-solid fa-xmark close-envelope-box"></i>
+                <div class="envelope">
+                    <div class="letter">
+                        <div class="text">
+                            <strong>To Maria! 💖</strong>
+                            <p>
+                                Happy Birthday, Maria! 🥳✨ Today is all about celebrating the wonderful, unique, and incredible person that you are. Having you in my life has made everything brighter, and I am so deeply grateful for your presence, your laughter, and the beautiful connection we share. You are truly one of a kind.
+                                <br><br>
+                                Whenever the world feels heavy or you feel like you are standing alone, always remember that you have me right by your side. You never have to carry everything by yourself. I genuinely care about you more than words can express, and my only wish for you this year is absolute happiness, peace, and that your brilliant smile never fades. May all your dreams come true. Have the most beautiful day! 🌟🎂
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="heart"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* ===========================
+           ELEMENT SELECTORS & AUDIO SETUP
+        =========================== */
+        const welcomeModal = document.getElementById("welcome-modal");
+        const soundEntryBtn = document.getElementById("soundEntry");
+        const bgMusic = document.getElementById("bgMusic");
+        const playBtn = document.getElementById("playBtn");
+        const muteBtn = document.getElementById("muteBtn");
+        const volumeSlider = document.getElementById("volumeSlider");
+        const wrapper = document.getElementById("wrapper");
+
+        bgMusic.volume = 0.6;
+
+        function updatePlayIcon(isPlaying) {
+            playBtn.innerHTML = isPlaying 
+                ? '<i class="fa-solid fa-pause"></i>' 
+                : '<i class="fa-solid fa-play"></i>';
+        }
+
+        /* =======================================================
+           REUSABLE CELEBRATION BURST (CRACKERS + FLOWER RAIN)
+        ======================================================= */
+        const partyIcons = ["🌸", "💐", "🌻", "🌺", "💮", "🍰", "🎂", "🎉", "🎊", "✨", "🌟", "💖", "🎀"];
+
+        function triggerPartyCelebration(originX, originY, particleCount = 40) {
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement("span");
+                particle.classList.add("celebration-particle");
+                particle.innerText = partyIcons[Math.floor(Math.random() * partyIcons.length)];
+
+                const angle = Math.random() * Math.PI * 2;
+                const blastDistance = Math.random() * 220 + 90;
+                const burstX = Math.cos(angle) * blastDistance + "px";
+                const burstY = (Math.sin(angle) * blastDistance - 70) + "px";
+
+                const driftX = (Math.random() - 0.5) * 160 + "px";
+                const fallDuration = (Math.random() * 1.5 + 2.2) + "s";
+                const randomSize = (Math.random() * 0.8 + 1.2) + "rem";
+                const rotMid = (Math.random() - 0.5) * 180 + "deg";
+                const rotEnd = (Math.random() - 0.5) * 720 + "deg";
+
+                particle.style.setProperty("--burst-x", burstX);
+                particle.style.setProperty("--burst-y", burstY);
+                particle.style.setProperty("--drift-x", driftX);
+                particle.style.setProperty("--fall-duration", fallDuration);
+                particle.style.setProperty("--rot-mid", rotMid);
+                particle.style.setProperty("--rot-end", rotEnd);
+                particle.style.fontSize = randomSize;
+                particle.style.left = `${originX}px`;
+                particle.style.top = `${originY}px`;
+
+                document.body.appendChild(particle);
+
+                particle.addEventListener("animationend", () => {
+                    particle.remove();
+                });
+            }
+        }
+
+        /* ===========================
+           TYPING DATE TEXT FUNCTION
+        =========================== */
+        function startTypingDate() {
+            let datetxt = "04 Sept";
+            let charArrDate = datetxt.split('');
+            let currentIndex = 0;
+            let date__of__birth = document.querySelector(".date__of__birth span");
+            
+            setTimeout(function () {
+                let timeDatetxt = setInterval(function () {
+                    if (currentIndex < charArrDate.length) {
+                        date__of__birth.textContent += charArrDate[currentIndex];
+                        currentIndex++;
+                    } else {
+                        let i = document.createElement("i");
+                        i.className = "fa-solid fa-star";
+                        document.querySelector(".date__of__birth").prepend(i);
+                        document.querySelector(".date__of__birth").appendChild(i.cloneNode(true));
+                        clearInterval(timeDatetxt);
+                    }
+                }, 100);
+            }, 12000);
+        }
+
+        /* ===========================
+           ENTRY MODAL (TRIGGER PLAYBACK & UNPAUSE)
+        =========================== */
+        soundEntryBtn.addEventListener("click", () => {
+            const rect = soundEntryBtn.getBoundingClientRect();
+            const originX = rect.left + rect.width / 2;
+            const originY = rect.top + rect.height / 2;
+
+            triggerPartyCelebration(originX, originY, 45);
+
+            // Unpause all animations & start typing text
+            wrapper.classList.remove("paused-anim");
+            startTypingDate();
+
+            welcomeModal.classList.add("hidden");
+            bgMusic.play().then(() => {
+                updatePlayIcon(true);
+            }).catch(e => console.log("Audio play error:", e));
+        });
+
+        /* ===========================
+           AUDIO PLAYER CONTROLS
+        =========================== */
+        playBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => updatePlayIcon(true));
+            } else {
+                bgMusic.pause();
+                updatePlayIcon(false);
+            }
+        });
+
+        volumeSlider.addEventListener("input", function (e) {
+            e.stopPropagation();
+            bgMusic.volume = this.value;
+            if (this.value == 0) {
+                bgMusic.muted = true;
+                muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+            } else {
+                bgMusic.muted = false;
+                muteBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+            }
+        });
+
+        muteBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            bgMusic.muted = !bgMusic.muted;
+            muteBtn.innerHTML = bgMusic.muted
+                ? '<i class="fa-solid fa-volume-xmark"></i>'
+                : '<i class="fa-solid fa-volume-high"></i>';
+        });
+
+        /* ===========================
+           ENVELOPE MODAL CONTROLS
+        =========================== */
+        const mailBoxBtn = document.querySelector('#btn__letter');
+        const envelopeContainer = document.querySelector('.container');
+        const envelopeWrapper = document.querySelector('.envelope-wrapper');
+        const heartBtn = document.querySelector('.heart');
+        const closeBoxX = document.querySelector('.close-envelope-box');
+        
+        mailBoxBtn.onclick = function (e) {
+            e.stopPropagation();
+
+            const rect = mailBoxBtn.getBoundingClientRect();
+            const originX = rect.left + rect.width / 2;
+            const originY = rect.top + rect.height / 2;
+
+            triggerPartyCelebration(originX, originY, 40);
+
+            setTimeout(() => {
+                envelopeContainer.classList.add('active');
+            }, 350);
+        };
+
+        heartBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            envelopeWrapper.classList.toggle("flap");
+        });
+
+        closeBoxX.addEventListener('click', function (e) {
+            e.stopPropagation();
+            envelopeContainer.classList.remove('active');
+            envelopeWrapper.classList.remove('flap');
+        });
+
+        /* =======================================================
+           CLICK-TO-SPAWN FLOATING EMOJIS (🌸, 💖, ✨, 🎀)
+        ======================================================= */
+        const tapSparkles = ["💖", "🌸", "✨", "🎀", "⭐", "💐", "🍰"];
+
+        document.addEventListener("click", function (e) {
+            if (e.target.closest("#volumeSlider") || e.target.closest(".close-envelope-box")) return;
+
+            const count = Math.floor(Math.random() * 2) + 2; 
+
+            for (let i = 0; i < count; i++) {
+                const item = document.createElement("span");
+                item.classList.add("floating-sparkle");
+                item.innerText = tapSparkles[Math.floor(Math.random() * tapSparkles.length)];
+
+                const dx = (Math.random() - 0.5) * 80 + "px";
+                const rot = (Math.random() - 0.5) * 50 + "deg";
+                const randomSize = (Math.random() * 0.6 + 1.1) + "rem";
+
+                item.style.setProperty("--dx", dx);
+                item.style.setProperty("--rot", rot);
+                item.style.fontSize = randomSize;
+                item.style.left = `${e.clientX}px`;
+                item.style.top = `${e.clientY}px`;
+
+                document.body.appendChild(item);
+
+                item.addEventListener("animationend", () => {
+                    item.remove();
+                });
+            }
+        });
+
+        /* =======================================================
+           REWARD-BASED SCRAPBOOK POLAROID INTERACTION
+        ======================================================= */
+        document.querySelectorAll(".scrap-card").forEach(card => {
+            card.addEventListener("click", function(e) {
+                this.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.08) rotate(1deg)' },
+                    { transform: 'scale(1.04) rotate(0deg)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
