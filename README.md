@@ -370,4 +370,4 @@ If you create your own version, feel free to share it!
 
 ### Made with ❤️, JavaScript & a little birthday magic ✨
 
-**Curie X**
+**Curie X** [Website link](https://shahadathossain.in/)
